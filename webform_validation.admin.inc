@@ -126,7 +126,7 @@ function webform_validation_manage_rule($form_state, $node, $action = 'add', $va
     '#default_value' => (isset($rule['components'])) ? array_keys($rule['components']) : array(),
   );
 
-  if (is_array($rule_validator['custom_data'])) {
+  if (isset($rule_validator['custom_data']) && is_array($rule_validator['custom_data'])) {
     $form['rule']['data'] = array(
       '#type' => 'textfield',
       '#title' => $rule_validator['custom_data']['label'],
