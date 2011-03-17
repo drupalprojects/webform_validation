@@ -219,6 +219,7 @@ function webform_validation_webform_validation_validate($validator_name, $items,
   $check_false_callback = ($version == 3) ? '_webform_validation_check_false' : NULL;
 
   if ($items) {
+    $errors = array();
     switch ($validator_name) {
       case 'numeric':
         $num_range = _webform_numeric_check_data($rule['data']);

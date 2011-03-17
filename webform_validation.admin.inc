@@ -9,6 +9,7 @@
  * Menu callback function to show an overview of the existing validation rules, and the option to add a rule
  */
 function webform_validation_manage($node) {
+  $output = '';
   $rules = webform_validation_get_webform_rules($node);
   $output .= theme('webform_validation_manage_overview', $rules, $node);
   $output .= theme('webform_validation_manage_add_rule', $node->nid);
