@@ -194,6 +194,13 @@ function webform_validation_webform_validation_validators() {
       ),
       'description' => t("Validates that user-entered data doesn't contain any of the specified illegal words"),
     ),
+   'username' => array(
+      'name' => "Must match a username",
+      'component_types' => array(
+        'textfield',
+      ),
+      'description' => t("Validates that user-entered data matches a username"),
+    ),
   );
 }
 
@@ -203,7 +210,7 @@ function webform_validation_webform_validation_validators() {
 function webform_validation_webform_validation_validate($validator_name, $items, $components, $rule) {
   /**
    * Preparation for select_* validation rules and the handling of key 0 for select components
-   * 
+   *
    * Only webform 3 handles a select list with key 0 properly.
    * The array_filter callback function is only loaded for webform 3 to make sure
    * it works perfectly for webform 3, and works in all cases except with key 0 for webform 2
@@ -402,6 +409,18 @@ function webform_validation_webform_validation_validate($validator_name, $items,
               $errors[$key] = _webform_validation_i18n_error_message($rule);
             }
           }
+        return $errors;
+        break;
+      case "username":
+        foreach ($items as $key => $val) {
+          // load user - if username does not match or status 0 throw error
+          if ($val) {
+            if (!db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND status = 1", $val))) {
+              // Username doesn't exist
+              $errors[$key] = t('The %item field does not match an active username.', array('%item' => $components[$key]['name']));
+            }
+          }
+        }
         return $errors;
         break;
     }
