@@ -107,7 +107,7 @@ function webform_validation_validate($form, &$form_state) {
   $flat_values = _webform_client_form_submit_flatten($node, $form_state['values']['submitted']);
   $rules = webform_validation_get_node_rules($nid);
 
-  // multistep: keep track of values submitted in previous steps.
+  // Get number of pages for this webform
   if (isset($form_state['values']['details']['page_count'])) {
     $page_count = $form_state['values']['details']['page_count'];
   }
