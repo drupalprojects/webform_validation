@@ -100,6 +100,7 @@ function webform_validation_form_alter(&$form, $form_state, $form_id) {
  * Webform validation handler to validate against the given rules
  */
 function webform_validation_validate($form, &$form_state) {
+  $page_count = 1;
   $nid = $form_state['values']['details']['nid'];
   $node = node_load($nid);
   $values = $form_state['values']['submitted'];
@@ -107,12 +108,14 @@ function webform_validation_validate($form, &$form_state) {
   $rules = webform_validation_get_node_rules($nid);
 
   // multistep: keep track of values submitted in previous steps.
-  $version = webform_validation_check_version();
-  if ($version == 2) {
-    $page_count = isset($form_state['values']['details']['page_count']) ? $form_state['values']['details']['page_count'] : NULL;
+  if (isset($form_state['values']['details']['page_count'])) {
+    $page_count = $form_state['values']['details']['page_count'];
   }
-  elseif ($version == 3) {
-    $page_count = isset($form_state['webform']['page_count']) ? $form_state['webform']['page_count'] : NULL;
+  else if (isset($form_state['webform']['page_count'])) {
+    $page_count = $form_state['webform']['page_count'];
+  }
+  else if (isset($form_state['storage']['page_count'])) {
+    $page_count = $form_state['storage']['page_count'];
   }
 
   // Filter out rules that don't apply to this step in the multistep form
