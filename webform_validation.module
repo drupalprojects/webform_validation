@@ -326,7 +326,7 @@ function webform_validation_webform_validation($type, $op, $data) {
  * Implementation of hook_nodeapi().
  */
 function webform_validation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  if ($op == 'insert' && module_exists('node_clone')) {
+  if ($op == 'insert' && module_exists('clone')) {
     $vars = webform_validation_get_vars();
     if (in_array($node->type, $vars['webform_contenttypes'])) {
       webform_validation_node_clone($node);
