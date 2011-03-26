@@ -361,6 +361,7 @@ function webform_validation_webform_validation_validate($validator_name, $items,
       case "select_min":
         $min_selections = $rule['data'];
         foreach ($items as $key => $val) {
+          $val = (is_array($val)) ? $val : array($val); // workaround for single select components
           $selected_values = isset($check_false_callback) ? array_filter($val, $check_false_callback): array_filter($val);
           if (is_array($val) && (count($selected_values) < $min_selections)) {
             $errors[$key] = t('Please select at least %num options for %item', array('%num' => $min_selections, '%item' => $components[$key]['name']));
@@ -371,6 +372,7 @@ function webform_validation_webform_validation_validate($validator_name, $items,
       case "select_max":
         $max_selections = $rule['data'];
         foreach ($items as $key => $val) {
+          $val = (is_array($val)) ? $val : array($val); // workaround for single select components
           $selected_values = isset($check_false_callback) ? array_filter($val, $check_false_callback): array_filter($val);
           if (is_array($val) && (count($selected_values) > $max_selections)) {
             $errors[$key] = t('Please select maximum %num options for %item', array('%num' => $max_selections, '%item' => $components[$key]['name']));
