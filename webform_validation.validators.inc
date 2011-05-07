@@ -253,7 +253,7 @@ function webform_validation_webform_validation_validate($validator_name, $items,
    * The array_filter callback function is only loaded for webform 3 to make sure
    * it works perfectly for webform 3, and works in all cases except with key 0 for webform 2
    */
-  $version = $version = webform_validation_check_version();
+  $version = webform_validation_check_version();
   $check_false_callback = ($version == 3) ? '_webform_validation_check_false' : NULL;
 
   if ($items) {
