@@ -156,7 +156,7 @@ function webform_validation_manage_rule($form_state, $node, $action = 'add', $va
 
   $form['rule']['submit'] = array(
     '#type' => 'submit',
-    '#value' => (isset($rule['ruleid'])) ? t('Edit rule') : t('Add rule'),
+    '#value' => (isset($rule['ruleid'])) ? t('Save rule') : t('Add rule'),
     '#weight' => 25,
   );
 
